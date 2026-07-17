@@ -1,0 +1,11 @@
+[
+  { "date": "2026-08-02", "status": "available" },
+  { "date": "2026-08-09", "status": "booked" },
+  { "date": "2026-08-16", "status": "available" },
+  { "date": "2026-08-23", "status": "available" },
+  { "date": "2026-08-30", "status": "booked" },
+  { "date": "2026-09-06", "status": "available" },
+  { "date": "2026-09-13", "status": "available" },
+  { "date": "2026-09-20", "status": "booked" },
+  { "date": "2026-09-27", "status": "available" }
+]

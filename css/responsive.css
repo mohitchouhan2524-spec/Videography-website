@@ -1,0 +1,52 @@
+/* ============================================================
+   2BCLICKS — RESPONSIVE OVERRIDES
+   Loaded last so these rules win at their breakpoints.
+   ============================================================ */
+
+@media(max-width:640px){
+  .container{padding:0 20px;}
+}
+
+@media(max-width:900px){
+  nav.primary-nav{
+    position:fixed;top:0;right:0;bottom:0;width:min(320px,80vw);
+    background:rgba(10,10,11,.98);backdrop-filter:blur(20px);
+    flex-direction:column;align-items:flex-start;justify-content:center;
+    gap:26px;padding:40px;transform:translateX(100%);transition:transform .5s var(--ease);
+    border-left:1px solid var(--surface-border);
+  }
+  nav.primary-nav.open{transform:translateX(0);}
+  nav.primary-nav a{font-size:16px;}
+  .nav-toggle{display:block;}
+
+  .about-grid{grid-template-columns:1fr;gap:44px;}
+  .pillars{grid-template-columns:1fr;}
+  .contact-grid{grid-template-columns:1fr;gap:40px;}
+  .price-grid{grid-template-columns:1fr;}
+  .gal-grid{columns:2 260px;}
+  .svc-grid{grid-template-columns:repeat(2,1fr);}
+  .avail-grid{grid-template-columns:1fr 1fr;}
+  .book-cta-card{grid-template-columns:1fr;text-align:center;}
+}
+
+@media(max-width:768px){
+  section{padding:90px 0;}
+}
+
+@media(max-width:980px){
+  .pf-grid{grid-template-columns:repeat(2,1fr);}
+}
+
+@media(max-width:600px){
+  .pf-grid{grid-template-columns:1fr;}
+}
+
+@media(max-width:560px){
+  .svc-grid{grid-template-columns:1fr;}
+}
+
+@media(max-width:520px){
+  .stat-row{grid-template-columns:1fr 1fr;}
+  .gal-grid{columns:1;}
+  .avail-grid{grid-template-columns:1fr;}
+}

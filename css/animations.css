@@ -1,0 +1,86 @@
+/* ============================================================
+   2BCLICKS — ANIMATIONS
+   All keyframes + transition/motion rules live here so motion
+   can be tuned or stripped independently of layout (style.css).
+   ============================================================ */
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto;}
+  *,*::before,*::after{animation-duration:0.001ms !important;animation-iteration-count:1 !important;transition-duration:0.001ms !important;scroll-behavior:auto !important;}
+}
+
+/* ---------- reveal-on-scroll ---------- */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease), transform .9s var(--ease);}
+.reveal.is-visible{opacity:1;transform:translateY(0);}
+.reveal-delay-1{transition-delay:.08s;}
+.reveal-delay-2{transition-delay:.16s;}
+.reveal-delay-3{transition-delay:.24s;}
+
+/* ---------- aperture blades ---------- */
+.aperture-blade{transform-origin:50px 50px;transition:transform .6s var(--ease);}
+
+/* ---------- intro loader ---------- */
+#intro{transition:opacity .8s var(--ease);}
+#intro.hide{opacity:0;pointer-events:none;}
+#intro .word{opacity:0;animation:fadeWord 2.4s var(--ease) forwards;}
+@keyframes fadeWord{0%{opacity:0;transform:translateY(6px);}30%{opacity:1;transform:translateY(0);}80%{opacity:1;}100%{opacity:0;}}
+
+/* ---------- scroll progress aperture ---------- */
+#scroll-ap{opacity:0;transform:scale(.7);transition:opacity .4s var(--ease),transform .4s var(--ease);}
+#scroll-ap.show{opacity:1;transform:scale(1);}
+
+/* ---------- nav ---------- */
+header{transition:background .5s var(--ease),padding .5s var(--ease),border-color .5s var(--ease);}
+nav.primary-nav a{transition:color .3s;}
+nav.primary-nav a::after{transition:width .35s var(--ease);}
+.nav-cta{transition:background .3s,transform .3s;}
+.nav-toggle span{transition:transform .3s,opacity .3s;}
+
+/* ---------- hero letterbox + marquee ---------- */
+.letterbox{transition:height 1.4s var(--ease) .3s;}
+.marquee-track{animation:marquee 22s linear infinite;}
+@keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+.scroll-cue .line{animation:scrollLine 2s ease-in-out infinite;}
+@keyframes scrollLine{0%{transform:scaleY(0);transform-origin:top;}50%{transform:scaleY(1);transform-origin:top;}51%{transform-origin:bottom;}100%{transform:scaleY(0);transform-origin:bottom;}}
+
+/* ---------- buttons ---------- */
+.btn{transition:all .35s var(--ease);}
+
+/* ---------- about / pillars ---------- */
+.pillar{transition:border-color .35s,transform .35s;}
+
+/* ---------- portfolio ---------- */
+.pf-card{transition:transform .5s var(--ease),border-color .5s;}
+.pf-card .pf-play{transition:opacity .4s,transform .4s var(--ease);}
+
+/* ---------- services ---------- */
+.svc-cell{transition:background .4s;}
+
+/* ---------- testimonials marquee ---------- */
+.t-track{animation:tScroll 46s linear infinite;}
+.t-track-wrap:hover .t-track{animation-play-state:paused;}
+@keyframes tScroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* ---------- gallery ---------- */
+.gal-item::after{transition:opacity .4s;}
+.gal-item .gal-tag{transform:translateY(6px);transition:all .4s;}
+
+/* ---------- availability + book cta ---------- */
+.avail-chip.available button{transition:all .3s;}
+.book-cta-btn{transition:all .3s;}
+
+/* ---------- contact ---------- */
+.contact-row{transition:padding-left .3s;}
+.social-btn{transition:all .3s var(--ease);}
+
+/* ---------- floating whatsapp ---------- */
+#wa-float{transition:transform .3s var(--ease);}
+#wa-float .pulse{animation:pulseRing 2.2s ease-out infinite;}
+@keyframes pulseRing{0%{transform:scale(1);opacity:.7;}100%{transform:scale(1.7);opacity:0;}}
+
+/* ---------- lightbox / modal ---------- */
+.lightbox{transition:opacity .4s var(--ease);}
+.modal-overlay{transition:opacity .35s;}
+
+/* ---------- admin ---------- */
+.mini-row .del{transition:background .3s,color .3s;}

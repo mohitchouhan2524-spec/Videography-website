@@ -1,0 +1,24 @@
+{
+  "gallery": [
+    { "id": "g1", "tag": "Wedding · Indore", "url": "" },
+    { "id": "g2", "tag": "Portrait", "url": "" },
+    { "id": "g3", "tag": "Detail Shot", "url": "" },
+    { "id": "g4", "tag": "Candid", "url": "" },
+    { "id": "g5", "tag": "Groom Prep", "url": "" },
+    { "id": "g6", "tag": "Bridal", "url": "" },
+    { "id": "g7", "tag": "Venue", "url": "" },
+    { "id": "g8", "tag": "Reception", "url": "" },
+    { "id": "g9", "tag": "Drone Still", "url": "" },
+    { "id": "g10", "tag": "Editorial", "url": "" },
+    { "id": "g11", "tag": "Travel", "url": "" },
+    { "id": "g12", "tag": "Product", "url": "" }
+  ],
+  "bts": [
+    { "id": "b1", "caption": "On location — Indore", "url": "" },
+    { "id": "b2", "caption": "Setting the gimbal rig", "url": "" },
+    { "id": "b3", "caption": "Golden hour scout", "url": "" },
+    { "id": "b4", "caption": "Drone pre-flight check", "url": "" },
+    { "id": "b5", "caption": "Colour grading session", "url": "" },
+    { "id": "b6", "caption": "Directing the shot list", "url": "" }
+  ]
+}
