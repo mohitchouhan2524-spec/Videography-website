@@ -98,6 +98,7 @@ header.scrolled{
 .nav-row{display:flex;align-items:center;justify-content:space-between;gap:24px;}
 .brand{display:flex;align-items:center;gap:10px;font-family:var(--font-display);font-size:24px;letter-spacing:.03em;}
 .brand .aperture{width:30px;height:30px;}
+.brand .img{width:30px;height:30px;border-radius: 50%;}
 .brand small{display:block;font-family:var(--font-mono);font-size:9px;letter-spacing:.22em;color:var(--text-faint);text-transform:uppercase;margin-top:2px;}
 nav.primary-nav{display:flex;align-items:center;gap:34px;}
 nav.primary-nav a{
@@ -263,6 +264,16 @@ section{position:relative;padding:130px 0;}
   display:flex;align-items:center;justify-content:center;color:var(--text-faint);font-size:10px;
   font-family:var(--font-mono);letter-spacing:.08em;text-align:center;padding:8px;
 }
+.equip-item{
+  position:relative;aspect-ratio:1;border-radius:4px;overflow:hidden;
+  border:1px solid var(--surface-border);background:linear-gradient(160deg,#171410,#0a0a0b);
+}
+.equip-item img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.equip-item .equip-label{
+  position:absolute;bottom:0;left:0;right:0;padding:8px 10px;
+  font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;color:var(--gold-light);
+  background:linear-gradient(0deg,rgba(0,0,0,.8),transparent);text-transform:uppercase;
+}
 
 /* ============================================================
    PORTFOLIO
@@ -305,7 +316,7 @@ section{position:relative;padding:130px 0;}
   position:relative;aspect-ratio:16/9;border-radius:6px;overflow:hidden;
   border:1px solid var(--surface-border);background:#000;
 }
-.reel-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+.reel-frame iframe,.reel-frame video{position:absolute;inset:0;width:100%;height:100%;border:0;object-fit:cover;}
 .reel-placeholder{
   position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;
   background:radial-gradient(ellipse at center,rgba(198,161,91,.08),transparent 60%),#0c0c0d;
@@ -397,6 +408,50 @@ section{position:relative;padding:130px 0;}
   position:absolute;bottom:0;left:0;right:0;padding:16px;font-family:var(--font-mono);font-size:10px;
   letter-spacing:.08em;color:var(--text-muted);background:linear-gradient(0deg,rgba(0,0,0,.75),transparent);
 }
+
+/* ============================================================
+   REVIEWS / FEEDBACK
+   ============================================================ */
+#reviews{background:var(--bg-alt);}
+.review-summary{
+  display:flex;align-items:center;gap:18px;justify-content:center;margin-bottom:50px;
+  font-family:var(--font-mono);
+}
+.review-avg-num{font-family:var(--font-display);font-size:48px;color:var(--gold-light);line-height:1;}
+.review-count{font-size:11px;letter-spacing:.08em;color:var(--text-faint);text-transform:uppercase;}
+.star{color:var(--surface-border);font-size:20px;}
+.star.filled{color:var(--gold);}
+
+.review-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:start;}
+.review-list{display:flex;flex-direction:column;gap:16px;max-height:520px;overflow-y:auto;padding-right:6px;}
+.review-list::-webkit-scrollbar{width:5px;}
+.review-list::-webkit-scrollbar-thumb{background:var(--gold-dim);border-radius:4px;}
+.review-card{background:var(--surface);border:1px solid var(--surface-border);border-radius:6px;padding:22px 24px;}
+.review-card-top{display:flex;justify-content:space-between;align-items:center;}
+.review-card .star{font-size:14px;}
+.review-msg{font-family:var(--font-display);font-size:16px;font-style:italic;color:var(--text);margin:12px 0;line-height:1.5;}
+.review-who{display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:11px;color:var(--text-muted);}
+.review-date{color:var(--text-faint);}
+.review-del{font-family:var(--font-mono);font-size:10px;letter-spacing:.06em;color:var(--danger);border:1px solid rgba(181,83,63,.4);padding:5px 10px;border-radius:4px;}
+
+.review-form-card{position:sticky;top:100px;}
+.star-input{display:flex;flex-direction:row-reverse;justify-content:flex-end;gap:4px;}
+.star-input input{position:absolute;opacity:0;pointer-events:none;}
+.star-input label{font-size:30px;color:var(--surface-border);cursor:pointer;transition:color .2s;line-height:1;}
+.star-input input:checked ~ label,
+.star-input label:hover,
+.star-input label:hover ~ label{color:var(--gold);}
+
+/* shared form card + inline form message (also used by the review form) */
+.form-card{
+  background:var(--surface);border:1px solid var(--surface-border);border-radius:8px;
+  padding:32px;backdrop-filter:blur(10px);
+}
+.form-msg{
+  margin-top:14px;padding:12px 16px;border-radius:4px;font-size:13px;display:none;
+}
+.form-msg.show{display:block;background:rgba(198,161,91,.1);border:1px solid var(--gold-dim);color:var(--gold-light);}
+.form-msg.show.ok{background:rgba(127,156,118,.12);border-color:rgba(127,156,118,.4);color:var(--ok);}
 
 /* ============================================================
    AVAILABILITY + BOOK VIA CTA  (replaces the old booking form)

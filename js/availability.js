@@ -1,10 +1,3 @@
-/* ============================================================
-   2BCLICKS — AVAILABILITY + BOOK-VIA-CONTACT  (Supabase-backed)
-   Reads/writes the `availability_dates` table. Visitors pick an
-   open date and go straight to WhatsApp with it pre-filled, or
-   DM Instagram / call directly — no forms anywhere.
-   ============================================================ */
-
 const Availability = (function(){
 
   let dates = [];

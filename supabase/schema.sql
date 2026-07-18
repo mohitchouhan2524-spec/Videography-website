@@ -1,25 +1,3 @@
--- ============================================================
--- 2BCLICKS — SUPABASE SCHEMA
--- ------------------------------------------------------------
--- HOW TO RUN THIS:
--- 1. Go to your Supabase project → SQL Editor → New query.
--- 2. Paste this entire file in and click "Run".
--- 3. That's it — tables, security rules and the storage bucket
---    are all created in one go.
---
--- WHAT THIS SETS UP:
--- - 5 tables mirroring the site's content (portfolio, hero
---   videos, gallery photos, BTS photos, availability dates).
--- - Row Level Security (RLS) so that:
---     • ANYONE can read (visitors never need to log in).
---     • ONLY a logged-in admin account can add/edit/delete.
---   This is enforced by the database itself — even if someone
---   opens dev tools and calls the API directly, the database
---   will reject writes from anyone who isn't logged in.
--- - A public "media" storage bucket for uploaded videos/photos,
---   with the same read-open / write-admin-only rule.
--- ============================================================
-
 create extension if not exists pgcrypto;
 
 -- ---------- TABLES ----------
@@ -40,14 +18,14 @@ create table if not exists hero_videos (
 
 create table if not exists gallery_photos (
   id uuid primary key default gen_random_uuid(),
-  tag text default 'gallery_work',
+  tag text default 'Untitled',
   url text default '',
   created_at timestamptz default now()
 );
 
 create table if not exists bts_photos (
   id uuid primary key default gen_random_uuid(),
-  caption text default 'BTS',
+  caption text default 'Untitled',
   url text default '',
   created_at timestamptz default now()
 );
@@ -75,11 +53,6 @@ create policy "public read gallery" on gallery_photos for select using (true);
 create policy "public read bts" on bts_photos for select using (true);
 create policy "public read availability" on availability_dates for select using (true);
 
--- Admin-only write. "authenticated" here means: signed in with an
--- account YOU created (Authentication → Users in the Supabase
--- dashboard) — there's no public sign-up form anywhere on the
--- site, so the only people who can ever be "authenticated" are
--- the admin accounts you set up yourself.
 create policy "admin write portfolio" on portfolio_items for all
   using (auth.role() = 'authenticated') with check (auth.role() = 'authenticated');
 create policy "admin write hero" on hero_videos for all
@@ -113,14 +86,62 @@ create policy "admin upload media" on storage.objects for insert
 create policy "admin delete media" on storage.objects for delete
   using (bucket_id = 'media' and auth.role() = 'authenticated');
 
+create table if not exists feedback (
+  id uuid primary key default gen_random_uuid(),
+  name text default 'Anonymous',
+  rating int not null check (rating between 1 and 5),
+  message text default '',
+  created_at timestamptz default now()
+);
+
+alter table feedback enable row level security;
+
+-- Anyone can read reviews (shown publicly on the site)
+create policy "public read feedback" on feedback for select using (true);
+
+create policy "public submit feedback" on feedback for insert
+  with check (true);
+
+-- Only a logged-in admin can remove a review (e.g. spam/abuse) —
+-- there is no public "edit" or "delete" of feedback.
+create policy "admin delete feedback" on feedback for delete
+  using (auth.role() = 'authenticated');
+
+alter publication supabase_realtime add table feedback;
+
 -- ============================================================
--- NEXT STEPS (after running this file):
--- 1. Authentication → Users → Add user → create one login per
---    admin (e.g. Ankit's Gmail + a password, Mohit's Gmail + a
---    password). These are the ONLY accounts that can edit the site.
--- 2. Project Settings → API → copy your "Project URL" and
---    "anon public" key into js/config.js.
--- 3. Open the site — visitors see it exactly as before, and
---    "Studio Login" in the footer now checks against the real
---    accounts you just created.
+-- SITE SETTINGS + EQUIPMENT  (added later — lets the founders
+-- photo/caption, equipment photos, and the showreel be edited
+-- from the Studio Dashboard instead of by hand in the code)
+-- ------------------------------------------------------------
+-- Run just this block if you already ran the rest of this file.
 -- ============================================================
+
+-- Small key/value table for one-off, singleton content: the
+-- founders photo, founders caption, and the showreel video.
+create table if not exists site_settings (
+  key text primary key,
+  value text default '',
+  updated_at timestamptz default now()
+);
+
+alter table site_settings enable row level security;
+create policy "public read settings" on site_settings for select using (true);
+create policy "admin write settings" on site_settings for all
+  using (auth.role() = 'authenticated') with check (auth.role() = 'authenticated');
+alter publication supabase_realtime add table site_settings;
+
+-- Equipment list: camera body, drone, gimbal, lens kit, etc. —
+-- add/rename/remove as many as you like from the dashboard.
+create table if not exists equipment_items (
+  id uuid primary key default gen_random_uuid(),
+  label text not null,
+  photo_url text default '',
+  created_at timestamptz default now()
+);
+
+alter table equipment_items enable row level security;
+create policy "public read equipment" on equipment_items for select using (true);
+create policy "admin write equipment" on equipment_items for all
+  using (auth.role() = 'authenticated') with check (auth.role() = 'authenticated');
+alter publication supabase_realtime add table equipment_items;

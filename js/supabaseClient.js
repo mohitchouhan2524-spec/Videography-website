@@ -1,11 +1,3 @@
-/* ============================================================
-   2BCLICKS — SUPABASE CLIENT
-   Requires the Supabase CDN script to be loaded first (see the
-   <script src="https://cdn.jsdelivr.net/.../supabase.js"> tag in
-   index.html), and js/config.js to be loaded before this file.
-   Every other script uses the global `sb` created here.
-   ============================================================ */
-
 let sb = null;
 let SUPABASE_READY = false;
 

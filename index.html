@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>2Bclicks — Turning Love Into Art | Cinematic Wedding &amp; Brand Films, Indore</title>
 <meta name="description" content="2Bclicks is a cinematic videography studio by Ankit Chouhan &amp; Mohit Chouhan, serving Indore, Dewas, Dhar &amp; Ujjain. Wedding films, brand films, drone coverage &amp; more.">
-<link rel="icon" href="assets/logo/aperture-mark.svg">
+<link rel="icon" href="assets/logo/Logo.jpg.jpeg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Jost:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -17,8 +17,7 @@
 
 <!-- ============ INTRO / APERTURE LOADER ============ -->
 <div id="intro" aria-hidden="true">
-  <div class="aperture" id="introAperture"></div>
-  <span class="word">2Bclicks</span>
+  <img src="assets/logo/Logo.jpg.jpeg">
 </div>
 
 <!-- ============ SCROLL PROGRESS APERTURE ============ -->
@@ -30,8 +29,8 @@
 <header id="siteHeader">
   <div class="container nav-row">
     <a href="#hero" class="brand">
-      <div class="aperture" id="navAperture"></div>
-      <span>2Bclicks<small>Ankit &amp; Mohit Chouhan</small></span>
+      <img class="img" src="assets/logo/Logo.jpg.jpeg">
+      <span>2BClicks<small>Ankit Chouhan &amp; Mohit Chouhan</small></span>
     </a>
     <nav class="primary-nav" id="primaryNav">
       <a href="#about" class="nav-link">About</a>
@@ -59,7 +58,7 @@
 
   <div class="hero-content">
     <div class="aperture" id="heroApertureMark"></div>
-    <h1>2B<span class="amp">clicks</span></h1>
+    <h1>2B<span class="amp">Clicks</span></h1>
     <p class="hero-tagline">Turning love into art.</p>
     <p class="hero-sub">Cinematic Wedding &amp; Brand Films — Indore · Dewas · Dhar · Ujjain</p>
     <div class="hero-ctas">
@@ -82,18 +81,18 @@
     <div class="about-grid">
       <div class="reveal">
         <div class="about-portrait">
-          <!-- Swap in a real portrait: <img src="assets/images/founders.jpg" alt="Ankit & Mohit Chouhan"> -->
+          <!-- Founders photo + caption are now editable from Studio Dashboard → About -->
+          <img id="foundersPhoto" src="" alt="Ankit &amp; Mohit Chouhan" style="display:none;">
+          <div class="aperture ap-mark" id="aboutAperture"></div>
           <div class="frame-corner fc-tl"></div>
           <div class="frame-corner fc-br"></div>
-          <div class="aperture ap-mark" id="aboutAperture"></div>
-          <div class="about-names">ANKIT CHOUHAN &amp; MOHIT CHOUHAN<br>FOUNDERS, 2BCLICKS</div>
+          <div class="about-names" id="foundersCaption">ANKIT CHOUHAN &amp; MOHIT CHOUHAN<br>FOUNDERS, 2BCLICKS</div>
         </div>
         <div class="founders">
-          <span class="founder-tag"><strong>Ankit Chouhan</strong> — Director &amp; Lead Cinematographer</span>
-          <span class="founder-tag"><strong>Mohit Chouhan</strong> — Editor &amp; Colorist</span>
+          <span class="founder-tag"><strong>Ankit Chouhan</strong> — Director &amp; Colorist</span>
+          <span class="founder-tag"><strong>Mohit Chouhan</strong> — Editor &amp; Cinematographer</span>
         </div>
       </div>
-
       <div class="reveal reveal-delay-1">
         <div class="eyebrow"><span class="ap-dot" data-ap></span>About the studio</div>
         <h2 style="font-size:clamp(30px,4vw,46px);margin-bottom:24px;">Two storytellers, one lens, five years of frames worth keeping.</h2>
@@ -116,19 +115,14 @@
       </div>
     </div>
 
-    <!-- EQUIPMENT — placeholder, fill in once you send the gear list -->
+    <!-- EQUIPMENT — now managed from Studio Dashboard → About -->
     <div class="equip-box reveal">
       <div>
         <h4>Equipment we shoot with</h4>
-        <p>Full gear list coming soon — camera bodies, drones, gimbals and lenses. Replace the four slots below with your real equipment names.</p>
+        <p>Managed from the Studio Dashboard.</p>
       </div>
     </div>
-    <div class="equip-grid reveal">
-      <div class="equip-slot">Camera Body<br>— add later —</div>
-      <div class="equip-slot">Drone<br>— add later —</div>
-      <div class="equip-slot">Gimbal<br>— add later —</div>
-      <div class="equip-slot">Lens Kit<br>— add later —</div>
-    </div>
+    <div class="equip-grid reveal" id="equipGrid"></div>
   </div>
 </section>
 
@@ -163,19 +157,7 @@
       <h2>Watch the studio in motion.</h2>
     </div>
 
-    <div class="reel-frame reveal" id="reelFrame">
-      <!-- REAL SHOWREEL: replace the placeholder div below with, e.g.
-           <iframe src="https://www.youtube.com/embed/VIDEO_ID" allow="autoplay; fullscreen" allowfullscreen loading="lazy"></iframe> -->
-      <div class="reel-placeholder">
-        <div class="aperture" id="reelAperture"></div>
-        <span>Showreel embed goes here</span>
-      </div>
-    </div>
-
-    <div class="demo-note reveal" id="demoSection">
-      <span class="ap-dot" data-ap></span>
-      <p>This is the <strong style="color:var(--gold-light);">Demo / Real Portfolio</strong> section. Once your real YouTube/Vimeo links are ready, add them from the Studio Dashboard (Portfolio tab) or directly in <code>data/portfolio.json</code> — they'll appear here and in the Portfolio grid automatically.</p>
-    </div>
+    <div class="reel-frame reveal" id="reelFrame"></div>
   </div>
 </section>
 
@@ -241,10 +223,49 @@
   </div>
 </section>
 
-<!-- ============ AVAILABILITY + BOOK VIA CONTACT ============
-     Replaces the old booking form — visitors pick an open date and
-     go straight to WhatsApp, or DM Instagram / call directly.
-     Ankit & Mohit manage dates from the Studio Dashboard. ============ -->
+<!-- ============ CLIENT FEEDBACK / 5-STAR RATINGS ============
+     Open to every visitor — no login needed to read or submit a
+     review. Only a logged-in admin sees a Delete button per card. ============ -->
+<section id="reviews">
+  <div class="container">
+    <div class="section-head center reveal" style="margin-left:auto;margin-right:auto;">
+      <div class="eyebrow" style="justify-content:center;"><span class="ap-dot" data-ap></span>Client feedback</div>
+      <h2>Rate Your Experience</h2>
+      <p>Worked with 2Bclicks? Leave a rating and a few words — it helps other couples and brands find us.</p>
+    </div>
+
+    <div class="review-summary reveal" id="reviewSummary"></div>
+
+    <div class="review-grid">
+      <div class="reveal">
+        <div class="review-list" id="reviewList"></div>
+      </div>
+
+      <div class="reveal reveal-delay-1">
+        <div class="form-card review-form-card">
+          <h4 style="font-size:20px;font-weight:400;margin-bottom:18px;">Leave a Review</h4>
+          <form id="reviewForm" novalidate>
+            <div class="field" style="margin-bottom:16px;">
+              <label>Your Rating</label>
+              <div class="star-input">
+                <input type="radio" id="star5" name="rating" value="5"><label for="star5" title="5 stars">★</label>
+                <input type="radio" id="star4" name="rating" value="4"><label for="star4" title="4 stars">★</label>
+                <input type="radio" id="star3" name="rating" value="3"><label for="star3" title="3 stars">★</label>
+                <input type="radio" id="star2" name="rating" value="2"><label for="star2" title="2 stars">★</label>
+                <input type="radio" id="star1" name="rating" value="1"><label for="star1" title="1 star">★</label>
+              </div>
+            </div>
+            <div class="field" style="margin-bottom:16px;"><label for="revName">Name (optional)</label><input id="revName" type="text" placeholder="Your name"></div>
+            <div class="field" style="margin-bottom:16px;"><label for="revMessage">Your feedback</label><textarea id="revMessage" placeholder="Tell us how it went..." style="min-height:90px;"></textarea></div>
+            <button type="submit" class="btn btn-gold" style="width:100%;justify-content:center;">Submit Review</button>
+            <div class="form-msg" id="reviewFormMsg"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="availability">
   <div class="container">
     <div class="section-head center reveal" style="margin-left:auto;margin-right:auto;">
@@ -279,7 +300,6 @@
         <h2 style="font-size:clamp(30px,4vw,46px);">Let's plan your film.</h2>
         <p style="color:var(--text-muted);margin-top:14px;max-width:420px;">Tell us your date and vision — we'll take it from there.</p>
 
-        <!-- CONTACT PLACEHOLDERS — values pulled from js/config.js. Add your real WhatsApp number, phone, Gmail and Instagram handle there. -->
         <div class="contact-list" id="contactList"></div>
 
         <div class="areas" id="areasRow"></div>
@@ -378,6 +398,8 @@
       <button class="admin-tab" data-tab="hero">Hero Videos</button>
       <button class="admin-tab" data-tab="portfolio">Portfolio</button>
       <button class="admin-tab" data-tab="gallery">Photos</button>
+      <button class="admin-tab" data-tab="about">About</button>
+      <button class="admin-tab" data-tab="showreel">Showreel</button>
       <button class="admin-tab" data-tab="availability">Availability</button>
     </div>
 
@@ -387,6 +409,7 @@
         <div><b id="statHero">0</b><span>Hero Videos</span></div>
         <div><b id="statPhotos">0</b><span>Gallery Photos</span></div>
         <div><b id="statAvail">0</b><span>Open Dates</span></div>
+        <div><b id="statEquip">0</b><span>Equipment Items</span></div>
       </div>
       <p class="sub">Backed by Supabase — every add/delete here is saved to a real, shared database and appears for every visitor immediately (and live, without a refresh, thanks to Realtime). Only accounts created under Authentication → Users in your Supabase project can sign in here.</p>
     </div>
@@ -409,6 +432,8 @@
           <option>Fashion</option><option>Reels</option><option>Cinematic</option>
         </select>
         <input type="url" id="pfUrlInput" placeholder="YouTube/Vimeo embed URL">
+        <span class="file-label">or upload .mp4:</span>
+        <input type="file" id="pfFileInput" accept="video/mp4">
         <button id="pfAddBtn" type="button">Add</button>
       </div>
       <div id="pfList"></div>
@@ -436,6 +461,48 @@
       <div id="btsList"></div>
     </div>
 
+    <div class="admin-pane" id="pane-about">
+      <p class="sub" style="margin-bottom:12px;">Founders photo</p>
+      <div class="admin-inline-form">
+        <input type="url" id="foundersUrlInput" placeholder="Image URL">
+        <span class="file-label">or upload:</span>
+        <input type="file" id="foundersFileInput" accept="image/*">
+        <button id="foundersSaveBtn" type="button">Save Photo</button>
+      </div>
+
+      <p class="sub" style="margin:22px 0 12px;">Founders caption (shown under the photo)</p>
+      <div class="admin-inline-form">
+        <input type="text" id="foundersCapInput" placeholder="e.g. Ankit Chouhan & Mohit Chouhan — Founders, 2Bclicks">
+        <button id="foundersCapSaveBtn" type="button">Save Caption</button>
+      </div>
+
+      <p class="sub" style="margin:28px 0 12px;">Equipment — camera body, drone, gimbal, lens kit, or anything else</p>
+      <div class="admin-inline-form">
+        <input type="text" id="equipLabelInput" placeholder="Name (e.g. Camera Body)">
+        <input type="url" id="equipUrlInput" placeholder="Photo URL">
+        <span class="file-label">or upload:</span>
+        <input type="file" id="equipFileInput" accept="image/*">
+        <button id="equipAddBtn" type="button">Add</button>
+      </div>
+      <div id="equipList"></div>
+    </div>
+
+    <div class="admin-pane" id="pane-showreel">
+      <p class="sub" style="margin-bottom:16px;">Fill in EITHER an embed URL OR a direct .mp4 (upload or paste a link) — whichever you fill in and save is what visitors see.</p>
+      <div class="admin-inline-form">
+        <input type="url" id="showreelEmbedInput" placeholder="YouTube/Vimeo embed URL">
+      </div>
+      <div class="admin-inline-form">
+        <input type="url" id="showreelMp4UrlInput" placeholder="Direct .mp4 URL">
+        <span class="file-label">or upload:</span>
+        <input type="file" id="showreelFileInput" accept="video/mp4">
+      </div>
+      <div class="admin-inline-form">
+        <button id="showreelSaveBtn" type="button">Save Showreel</button>
+        <button id="showreelClearBtn" type="button" style="background:transparent;border:1px solid var(--danger);color:var(--danger);">Clear Showreel</button>
+      </div>
+    </div>
+
     <div class="admin-pane" id="pane-availability">
       <div class="admin-inline-form">
         <input type="date" id="availDateInput">
@@ -455,7 +522,9 @@
 <script src="js/main.js"></script>
 <script src="js/portfolio.js"></script>
 <script src="js/gallery.js"></script>
+<script src="js/site.js"></script>
 <script src="js/availability.js"></script>
+<script src="js/feedback.js"></script>
 <script src="js/ui.js"></script>
 </body>
 </html>

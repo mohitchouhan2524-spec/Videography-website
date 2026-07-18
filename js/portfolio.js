@@ -1,11 +1,3 @@
-/* ============================================================
-   2BCLICKS — PORTFOLIO + HERO VIDEOS  (Supabase-backed)
-   Reads/writes the `portfolio_items` and `hero_videos` tables.
-   Public visitors only ever SELECT (read); INSERT/DELETE from the
-   Studio Dashboard require a logged-in admin session — enforced
-   by the RLS policies in supabase/schema.sql, not just by hiding
-   the UI.
-   ============================================================ */
 
 const Portfolio = (function(){
 

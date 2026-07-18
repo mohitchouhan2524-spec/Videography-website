@@ -84,6 +84,7 @@ const UI = (function(){
     document.getElementById('statHero').textContent = Portfolio.getHeroVideos().length;
     document.getElementById('statPhotos').textContent = Gallery.getPhotos().length;
     document.getElementById('statAvail').textContent = Availability.getDates().filter(d=>d.status==='available').length;
+    document.getElementById('statEquip').textContent = Site.getEquipment().length;
   }
 
   /* ---------- hero videos pane ---------- */
@@ -130,12 +131,20 @@ const UI = (function(){
     document.getElementById('pfAddBtn').addEventListener('click', async ()=>{
       const title = document.getElementById('pfTitleInput').value.trim();
       const cat = document.getElementById('pfCatInput').value;
-      const url = document.getElementById('pfUrlInput').value.trim();
+      const urlInput = document.getElementById('pfUrlInput');
+      const fileInput = document.getElementById('pfFileInput');
+      const btn = document.getElementById('pfAddBtn');
       if(!title) return;
       try{
+        let url = urlInput.value.trim();
+        if(fileInput.files[0]){
+          btn.textContent = 'Uploading…'; btn.disabled = true;
+          url = await App.uploadMedia(fileInput.files[0], 'portfolio'); // uploaded .mp4 takes priority over a pasted embed URL
+        }
         await Portfolio.addItem(title, cat, url);
-        document.getElementById('pfTitleInput').value=''; document.getElementById('pfUrlInput').value='';
+        document.getElementById('pfTitleInput').value=''; urlInput.value=''; fileInput.value='';
       }catch(e){ alert(e.message); }
+      finally{ btn.textContent = 'Add'; btn.disabled = false; }
     });
   }
 
@@ -227,12 +236,108 @@ const UI = (function(){
     });
   }
 
+  /* ---------- about pane: founders photo/caption + equipment ---------- */
+  function refreshSitePane(){
+    const equipList = document.getElementById('equipList');
+    equipList.innerHTML = Site.getEquipment().map(e=>`
+      <div class="mini-row">
+        <span class="grow">${e.photo_url?`<img class="thumb" src="${e.photo_url}" alt="">`:''}${e.label}</span>
+        <button class="del" data-id="${e.id}">Delete</button>
+      </div>`).join('') || `<p class="sub">No equipment added yet.</p>`;
+    equipList.querySelectorAll('.del').forEach(btn=>btn.addEventListener('click', async ()=>{
+      try{ await Site.removeEquipment(btn.dataset.id); }catch(e){ alert(e.message); }
+    }));
+    if(document.getElementById('statEquip')) document.getElementById('statEquip').textContent = Site.getEquipment().length;
+  }
+  function initAboutPane(){
+    document.getElementById('foundersSaveBtn').addEventListener('click', async ()=>{
+      const urlInput = document.getElementById('foundersUrlInput');
+      const fileInput = document.getElementById('foundersFileInput');
+      const btn = document.getElementById('foundersSaveBtn');
+      try{
+        let url = urlInput.value.trim();
+        if(!url && fileInput.files[0]){
+          btn.textContent = 'Uploading…'; btn.disabled = true;
+          url = await App.uploadMedia(fileInput.files[0], 'founders');
+        }
+        if(!url) return;
+        await Site.setSetting('founders_photo', url);
+        urlInput.value=''; fileInput.value='';
+      }catch(e){ alert(e.message); }
+      finally{ btn.textContent = 'Save Photo'; btn.disabled = false; }
+    });
+
+    document.getElementById('foundersCapSaveBtn').addEventListener('click', async ()=>{
+      const input = document.getElementById('foundersCapInput');
+      if(!input.value.trim()) return;
+      try{ await Site.setSetting('founders_caption', input.value.trim()); input.value=''; }
+      catch(e){ alert(e.message); }
+    });
+
+    document.getElementById('equipAddBtn').addEventListener('click', async ()=>{
+      const labelInput = document.getElementById('equipLabelInput');
+      const urlInput = document.getElementById('equipUrlInput');
+      const fileInput = document.getElementById('equipFileInput');
+      const btn = document.getElementById('equipAddBtn');
+      const label = labelInput.value.trim();
+      if(!label) return;
+      try{
+        let url = urlInput.value.trim();
+        if(!url && fileInput.files[0]){
+          btn.textContent = 'Uploading…'; btn.disabled = true;
+          url = await App.uploadMedia(fileInput.files[0], 'equipment');
+        }
+        await Site.addEquipment(label, url);
+        labelInput.value=''; urlInput.value=''; fileInput.value='';
+      }catch(e){ alert(e.message); }
+      finally{ btn.textContent = 'Add'; btn.disabled = false; }
+    });
+  }
+
+  /* ---------- showreel pane ---------- */
+  function initShowreelPane(){
+    document.getElementById('showreelSaveBtn').addEventListener('click', async ()=>{
+      const embed = document.getElementById('showreelEmbedInput').value.trim();
+      const mp4UrlInput = document.getElementById('showreelMp4UrlInput');
+      const fileInput = document.getElementById('showreelFileInput');
+      const btn = document.getElementById('showreelSaveBtn');
+      try{
+        let mp4Url = mp4UrlInput.value.trim();
+        if(!mp4Url && fileInput.files[0]){
+          btn.textContent = 'Uploading…'; btn.disabled = true;
+          mp4Url = await App.uploadMedia(fileInput.files[0], 'showreel');
+        }
+        // an uploaded/pasted .mp4 takes priority over a pasted embed URL
+        if(mp4Url){
+          await Site.setSetting('showreel_type', 'mp4');
+          await Site.setSetting('showreel_url', mp4Url);
+        } else if(embed){
+          await Site.setSetting('showreel_type', 'embed');
+          await Site.setSetting('showreel_url', embed);
+        } else {
+          return;
+        }
+        document.getElementById('showreelEmbedInput').value=''; mp4UrlInput.value=''; fileInput.value='';
+      }catch(e){ alert(e.message); }
+      finally{ btn.textContent = 'Save Showreel'; btn.disabled = false; }
+    });
+
+    document.getElementById('showreelClearBtn').addEventListener('click', async ()=>{
+      if(!confirm('Remove the current showreel and go back to the placeholder?')) return;
+      try{
+        await Site.setSetting('showreel_type', '');
+        await Site.setSetting('showreel_url', '');
+      }catch(e){ alert(e.message); }
+    });
+  }
+
   function refreshAll(){
     refreshOverview();
     refreshHeroPane();
     refreshPortfolioPane();
     refreshGalleryPane();
     refreshAvailPane();
+    refreshSitePane();
   }
 
   document.addEventListener('DOMContentLoaded', async ()=>{
@@ -242,9 +347,11 @@ const UI = (function(){
     initPortfolioPane();
     initGalleryPane();
     initAvailPane();
+    initAboutPane();
+    initShowreelPane();
   });
 
-  // exposed so portfolio.js / gallery.js / availability.js can refresh
-  // the open dashboard immediately when realtime pushes a change
-  return { refreshOverview, refreshHeroPane, refreshPortfolioPane, refreshGalleryPane, refreshAvailPane };
+  // exposed so portfolio.js / gallery.js / availability.js / site.js can
+  // refresh the open dashboard immediately when realtime pushes a change
+  return { refreshOverview, refreshHeroPane, refreshPortfolioPane, refreshGalleryPane, refreshAvailPane, refreshSitePane };
 })();

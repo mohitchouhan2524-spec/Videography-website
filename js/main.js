@@ -114,12 +114,17 @@ const App = (function(){
   }
 
   /* ---------- lightbox (shared by portfolio.js) ---------- */
+  function isDirectVideoFile(url){
+    return /\.(mp4|webm|mov)(\?.*)?$/i.test(url || '');
+  }
   function openLightbox(item){
     const lightbox = document.getElementById('lightbox');
     const frame = document.getElementById('lightboxFrame');
     document.getElementById('lbTitle').textContent = item.title;
     document.getElementById('lbCat').textContent = item.category || '';
-    if(item.url){
+    if(item.url && isDirectVideoFile(item.url)){
+      frame.innerHTML = `<video src="${item.url}" controls autoplay playsinline></video>`;
+    } else if(item.url){
       frame.innerHTML = `<iframe src="${item.url}" allow="autoplay; fullscreen" allowfullscreen loading="lazy"></iframe>`;
     } else {
       frame.innerHTML = `<div class="reel-placeholder"><div class="aperture"></div><span>Video coming soon</span></div>`;
